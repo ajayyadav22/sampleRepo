@@ -1,0 +1,34 @@
+format_version: 10
+pipelines:
+  cms-osiris-rds-datastore-sync-temp:
+    group: My-Pipelines
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git-0ec88c4:
+        git: https://github.com/ajayyadav22/sampleRepo
+        shallow_clone: false
+        auto_update: true
+        branch: custom
+    stages:
+    - cms-osiris-rds-datastore-sync-temp:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          deploy:
+            timeout: 0
+            secure_variables:
+              tenant: AES:RGtw1rb9vbTm+X5CcjfMVg==:YhKR99hnqNhzN06Z7OLRyA==
+            tasks:
+            - exec:
+                arguments:
+                - hello
+                command: echo
+                run_if: passed
+    parameters:
+      environment: dev
